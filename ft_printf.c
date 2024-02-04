@@ -26,7 +26,12 @@ int	ft_print_format(char *s, va_list args, int *count)
 	else if (*s == 'x' || *s == 'X')
 	{
 		int num = va_arg(args, int);
-		*count += ft_printexa(s, num);
+		*count += ft_printex(s, num);
+	}
+	else if (*s == 'p')
+	{
+		void *ptr = va_arg(args, void *);
+		*count += ft_printptr(ptr);
 	}
 	else if (*s == '%')
 	{
