@@ -14,14 +14,11 @@
 
 int	ft_print_format(char *s, va_list args, int *count)
 {
-	s++;
 	if (*s == 'c')
 		*count = ft_printchar(args, count);
 	else if (*s == 's')
 		*count = ft_printstring(args, count);
-	else if (*s == 'd' || *s == 'i')
-		*count = ft_printnumber(s, args, count);
-	else if (*s == 'u')
+	else if (*s == 'd' || *s == 'i' || *s == 'u')
 		*count = ft_printnumber(s, args, count);
 	else if (*s == 'x' || *s == 'X')
 	{
@@ -55,7 +52,10 @@ int	ft_printf(const char *format, ...)
 	while (*format)
 	{
 		if (*format == '%')
+		{
+			format++;
 			count += ft_print_format(format, args, &count);
+		}
 		else
 		{
 			ft_putchar(*format);
