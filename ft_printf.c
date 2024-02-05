@@ -6,38 +6,33 @@
 /*   By: jgalarce <jgalarce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:52:22 by jgalarce          #+#    #+#             */
-/*   Updated: 2024/02/02 19:52:24 by jgalarce         ###   ########.fr       */
+/*   Updated: 2024/02/05 14:57:28 by jgalarce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_format(char *s, va_list args, int *count)
+static int	ft_print_format(const char *s, va_list args)
 {
+	int	count;
+
+	count = 0;
 	if (*s == 'c')
-		*count = ft_printchar(args, count);
+		count += ft_printchar(va_arg(args, int));
 	else if (*s == 's')
-		*count = ft_printstring(args, count);
+		count += ft_printstring(args);
 	else if (*s == 'd' || *s == 'i' || *s == 'u')
-		*count = ft_printnumber(s, args, count);
+		count += ft_printnumber(s, args);
 	else if (*s == 'x' || *s == 'X')
-	{
-		int num = va_arg(args, int);
-		*count += ft_printex(s, num);
-	}
+		count += ft_printex(s, va_arg(args, int));
 	else if (*s == 'p')
-	{
-		void *ptr = va_arg(args, void *);
-		*count += ft_printptr(ptr);
-	}
+		count += ft_printptr(va_arg(args, void *));
 	else if (*s == '%')
 	{
 		ft_putchar_fd('%', 1);
-		*count++;
+		(count)++;
 	}
-	else
-		return (-1);
-	return (*count);
+	return (count);
 }
 
 int	ft_printf(const char *format, ...)
@@ -54,11 +49,11 @@ int	ft_printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			count += ft_print_format(format, args, &count);
+			count += ft_print_format(format, args);
 		}
 		else
 		{
-			ft_putchar(*format);
+			ft_putchar_fd(*format, 1);
 			count++;
 		}
 		format++;
@@ -67,9 +62,9 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-int main()
+int	main(void)
 {
-	
+	printf("%i\n",ft_printf("%s", "hola"));
+	printf("%i\n",printf("%s", "hola"));
+	return (0);
 }
-
-/*str = ((char *)&args);*/

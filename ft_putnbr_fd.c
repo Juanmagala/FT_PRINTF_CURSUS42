@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printex.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgalarce <jgalarce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 12:25:14 by jgalarce          #+#    #+#             */
-/*   Updated: 2024/02/05 12:25:14 by jgalarce         ###   ########.fr       */
+/*   Created: 2024/01/23 20:56:55 by jgalarce          #+#    #+#             */
+/*   Updated: 2024/01/23 20:56:55 by jgalarce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printex(const char *s, int num)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	*str;
-	int		count;
+	char	number;
 
-	count = 0;
-	if (*s == 'x')
-		str = "0123456789abcdef";
-	else
-		str = "0123456789ABCDEF";
-	if (num < 0)
-		num = num * (-1);
-	if (num >= 0 && num <= 15)
-	{
-		ft_putchar_fd(str[num], 1);
-		count++;
-	}
+	if (n == -2147483648)
+		write(fd, "-2147483648", 11);
 	else
 	{
-		count += ft_printex(s, num / 16);
-		ft_putchar_fd(str[num % 16], 1);
-		count++;
+		if (n < 0)
+		{
+			write(fd, "-", 1);
+			n = n * (-1);
+		}
+		if (n >= 10)
+			ft_putnbr_fd(n / 10, fd);
+		number = '0' + (n % 10);
+		write(fd, &number, 1);
 	}
-	return (count);
 }

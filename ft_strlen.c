@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printstring.c                                   :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgalarce <jgalarce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 19:37:39 by jgalarce          #+#    #+#             */
-/*   Updated: 2024/02/05 14:31:58 by jgalarce         ###   ########.fr       */
+/*   Created: 2023/10/02 19:24:17 by jgalarce          #+#    #+#             */
+/*   Updated: 2024/02/05 12:35:33 by jgalarce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printstring(va_list args)
+size_t	ft_strlen(const char *str)
 {
-	char	*str;
-	int		count;
+	int	c;
 
-	count = 0;
-	str = va_arg(args, char *);
-	count += ft_strlen(str);
-	ft_putstr_fd(str, 1);
-	return (count);
+	c = 0;
+	while (str[c] != '\0')
+	{
+		c++;
+	}
+	return (c);
 }
