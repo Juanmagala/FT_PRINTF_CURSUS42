@@ -6,7 +6,7 @@
 /*   By: jgalarce <jgalarce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:37:41 by jgalarce          #+#    #+#             */
-/*   Updated: 2024/02/05 14:51:28 by jgalarce         ###   ########.fr       */
+/*   Updated: 2024/02/06 17:45:17 by jgalarce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	ft_printchar(int args)
 {
-	ft_putchar_fd(args, 1);
+	write(1, &args, 1);
 	return (1);
 }

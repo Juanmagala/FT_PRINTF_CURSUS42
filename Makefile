@@ -2,17 +2,13 @@ CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
 
-CFILES = ft_atoi.c \
-ft_itoa.c \
-ft_printchar.c \
-ft_printex.c \
+CFILES = ft_printchar.c \
+ft_printhex.c \
 ft_printf.c \
 ft_printnumber.c \
 ft_printptr.c \
 ft_printstring.c \
-ft_putchar_fd.c \
-ft_putnbr_fd.c \
-ft_putstr_fd.c \
+ft_printunsigned.c \
 ft_strlen.c
 
 OFILES = $(CFILES:.c=.o)

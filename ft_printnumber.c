@@ -6,25 +6,51 @@
 /*   By: jgalarce <jgalarce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 19:37:44 by jgalarce          #+#    #+#             */
-/*   Updated: 2024/02/05 14:39:50 by jgalarce         ###   ########.fr       */
+/*   Updated: 2024/02/06 18:12:30 by jgalarce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printnumber(const char *s, va_list args)
+static int	ft_putnbr(int n, int *count)
 {
-	char	*str;
-	int		num;
-	int		count;
+	char	number;
+
+	if (n == -2147483648)
+	{
+		write(1, "-2147483648", 11);
+		*count = 11;
+	}
+	else
+	{
+		if (n < 0)
+		{
+			write(1, "-", 1);
+			n = n * (-1);
+			(*count)++;
+		}
+		if (n >= 10)
+			ft_putnbr(n / 10, count);
+		number = '0' + (n % 10);
+		write(1, &number, 1);
+		(*count)++;
+	}
+	return (*count);
+}
+
+int	ft_printnumber(va_list args)
+{
+	int	num;
+	int	count;
 
 	count = 0;
 	num = va_arg(args, int);
-	if (*s == 'u' && num < 0)
-		num = num * (-1);
-	str = ft_itoa(num);
-	count += ft_strlen(str);
-	ft_putnbr_fd(num, 1);
-	free(str);
+	if (num == 0)
+	{
+		write(1, "0", 1);
+		count++;
+	}
+	else
+		ft_putnbr(num, &count);
 	return (count);
 }
